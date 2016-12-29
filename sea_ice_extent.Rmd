@@ -1,0 +1,30 @@
+---
+title: "Sea Ice Extent"
+author: "Gregory H. Halverson"
+date: "December 28, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+sea_ice <- read.table(
+  'https://www.ncdc.noaa.gov/snow-and-ice/extent/sea-ice/N/11.csv',
+  skip = 3,
+  sep = ',',
+  header = TRUE
+)
+
+head(sea_ice)
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(data = sea_ice, aes(Date, Value)) +
+  geom_line(col = 'blue') + 
+  scale_x_continuous(breaks = seq(1978, 2016, 2)) +
+  theme(axis.text.x = element_text(angle = -45, vjust = 0.7))
+```
